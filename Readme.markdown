@@ -1,1 +1,1 @@
-Smaller filter that will "extract" a single directory from an inputTree. An optimization over using broccoli-funnel, because this does not need to walk a (potentially large) input tree. All it needs to do is symlink a single folder to the output directory.
+Small filter that will "extract" a single directory from an inputTree. An optimization over using broccoli-funnel, because this does not need to walk a (potentially large) input tree. All it needs to do is symlink a single folder to the output directory.
