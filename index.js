@@ -24,7 +24,6 @@ BroccoliExtractSingleDirectory.prototype.rebuild = function () {
 
   mkdirp(path.dirname(fullDestPath));
   symlinkOrCopySync(fullPathToExtract, fullDestPath)
-  console.log('Pulled out', this.pathToExtract, 'to', fullDestPath);
 
   return this.outputPath;
 }
