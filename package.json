@@ -1,0 +1,8 @@
+{
+  "name": "broccoli-extract-single-directory",
+  "version": "0.0.1",
+  "dependencies": {
+    "mkdirp": "^0.5.0",
+    "symlink-or-copy": "^1.0.1"
+  }
+}
