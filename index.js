@@ -1,17 +1,17 @@
 var fs   = require('fs');
 var path = require('path');
 var mkdirp = require('mkdirp').sync;
+var Plugin = require('broccoli-plugin');
 var symlinkOrCopySync = require('symlink-or-copy').sync;
 
-function BroccoliExtractSingleDirectory (inputTree, pathToExtract, options) {
+BroccoliExtractSingleDirectory.prototype = Object.create(Plugin.prototype);
+BroccoliExtractSingleDirectory.constructor = BroccoliExtractSingleDirectory;
+
+function BroccoliExtractSingleDirectory (inputNode, pathToExtract, options) {
   if (!(this instanceof BroccoliExtractSingleDirectory)) {
-    return new BroccoliExtractSingleDirectory(inputTree, pathToExtract);
+    return new BroccoliExtractSingleDirectory(inputNode, pathToExtract);
   }
 
-
-
-
-  this.inputTree = inputTree;
   this.pathToExtract = pathToExtract;
   this.options = options || {};
 
@@ -20,10 +20,14 @@ function BroccoliExtractSingleDirectory (inputTree, pathToExtract, options) {
   if (this.allowMissing === undefined) {
     this.allowMissing = true;
   }
+
+  Plugin.call(this, [inputNode], {
+    annotation: this.options.annotation
+  });
 }
 
-BroccoliExtractSingleDirectory.prototype.rebuild = function () {
-  var fullPathToExtract = path.join(this.inputPath, this.pathToExtract);
+BroccoliExtractSingleDirectory.prototype.build = function () {
+  var fullPathToExtract = path.join(this.inputPaths[0], this.pathToExtract);
   var fullDestPath = path.join(this.outputPath, this.pathToExtract);
   var stats;
 
@@ -45,8 +49,6 @@ BroccoliExtractSingleDirectory.prototype.rebuild = function () {
 
   mkdirp(path.dirname(fullDestPath));
   symlinkOrCopySync(fullPathToExtract, fullDestPath)
-
-  return this.outputPath;
 }
 
 
